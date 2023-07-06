@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\KY_effects\Script\ConGUI.cs" />
      <Compile Include="Assets\KY_effects\Script\Lighting.cs" />
+     <Compile Include="Assets\Scripts\SpellCheck.cs" />
      <None Include="Assets\KY_effects\MagicEffectsPackFree\ReadMe.txt" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2019.4.40f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
