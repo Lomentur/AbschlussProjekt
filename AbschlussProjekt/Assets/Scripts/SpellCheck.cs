@@ -1,71 +1,70 @@
 ﻿using UnityEngine;
 
-public class ProjectileCollision : MonoBehaviour
+public class SpellCheck : MonoBehaviour
 {
-    public string FireTag; //Tag of the first projectile
-    public string ElectroTag; //Tag of the second projectile
-    public string EnergyTag; //Tag of the third projectile
+    private string FireTag = "Fire"; //Tag of the first projectile
+    private string ElectroTag = "Electro"; //Tag of the second projectile
+    private string EnergyTag = "Energy"; //Tag of the third projectile
+    private string ArenaTag = "Arena";
     private int status;
 
     private GameObject collidedSpell; // Store the collided object
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("collision!");
         // Check if the collided object has a projectile tag
-        if (collision.gameObject.CompareTag(FireTag) || collision.gameObject.CompareTag(ElectroTag) || collision.gameObject.CompareTag(ElectroTag))
+        if (collision.gameObject.CompareTag(FireTag) || collision.gameObject.CompareTag(ElectroTag) || collision.gameObject.CompareTag(EnergyTag))
         {
+            Debug.Log("TagFound");
             collidedSpell = collision.gameObject; // Store the collided object
 
             // Get the tags of the collided projectiles
-            string shotProj = gameObject.tag;
-            string collidedProj = collidedSpell.tag;
+            string shotProjTag = gameObject.tag;
+            string collidedProjTag = collidedSpell.tag;
 
             // Handle the collision based on the projectile tags
-            if (shotProj == collidedProj) //if same tag
+            if (shotProjTag == collidedProjTag) //if same tag
             {
+                Debug.Log("SameTag");
                 DestroyBothObjects(); //destroy both spells
             }
-            switch (status)
-            {
-                case 0 when shotProj == FireTag && collidedProj == ElectroTag: //fire hits electro
-                DestroyObject(collidedSpell);//destroy electro
-                break;
-
-                case 1 when shotProj == ElectroTag && collidedProj == FireTag: //electro hits fire
-                DestroyObject(gameObject);//destroy electro
-                break;
-
-                case 2 when shotProj == FireTag && collidedProj == EnergyTag: //Fire hits Energy
-                DestroyObject(gameObject);//destroy fire
-                break;
-
-                case 3 when shotProj == EnergyTag && collidedProj == FireTag: //energy hits fire
-                DestroyObject(collidedSpell); //destroy fire
-                break;
-
-                case 4 when shotProj == EnergyTag && collidedProj == ElectroTag: //energy hits electro
-                DestroyObject(gameObject);//destroy energy
-                break;
-                
-                case 5 when shotProj == ElectroTag && collidedProj == EnergyTag: //electro hits energy
-                DestroyObject(collidedSpell);//destroy energy
-                break;
-                
-                default:
-                DestroyBothObjects(); //destroy both spells
-                break;
+            else
+            {            
+                if(shotProjTag == FireTag && collidedProjTag == ElectroTag) //Fire hits Electro
+                {
+                    Destroy(collidedSpell);//destroy electro
+                    Debug.Log(gameObject + " destroyed electro");
+                }
+                else if(shotProjTag == ElectroTag && collidedProjTag == EnergyTag) //Electro hits Energy
+                {
+                    Destroy(collidedSpell);//destroy energy
+                    Debug.Log(gameObject + " destroyed energy");
+                }
+                else if(shotProjTag == EnergyTag && collidedProjTag == FireTag) //Energy hits Fire
+                {
+                    Destroy(collidedSpell); //destroy fire
+                    Debug.Log(gameObject + " destroyed fire");
+                }
+                else
+                {
+                    Destroy(gameObject);
+                    Debug.Log(gameObject + " destroyed self");
+                }
             }
         }
+        else if (collision.gameObject.CompareTag(ArenaTag))
+        {
+            Destroy(gameObject);
+            Debug.Log(gameObject + " destroyed self");
+        }
     }
-
+    
     private void DestroyBothObjects() //method for destroying both spells
     {
-        DestroyObject(gameObject); //destroy shot projectile
-        DestroyObject(collidedSpell); //destroy hit projectile
-    }
-
-    private void DestroyObject(GameObject obj) //method for destroying target projectile
-    {
-        Destroy(obj); //destroy projectile
+        Destroy(gameObject); //destroy shot projectile
+        Debug.Log(gameObject + " was destroyed");
+        Destroy(collidedSpell); //destroy hit projectile
+        Debug.Log(collidedSpell + " was destroyed");
     }
 }
