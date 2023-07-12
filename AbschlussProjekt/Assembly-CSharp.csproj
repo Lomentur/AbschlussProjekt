@@ -38,9 +38,33 @@
   <ItemGroup>
      <Compile Include="Assets\KY_effects\Script\ConGUI.cs" />
      <Compile Include="Assets\KY_effects\Script\Lighting.cs" />
+     <Compile Include="Assets\PDollar\Scripts\Demo.cs" />
+     <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Geometry.cs" />
+     <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Gesture.cs" />
+     <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\GestureIO.cs" />
+     <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Point.cs" />
+     <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\PointCloudRecognizer.cs" />
+     <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Result.cs" />
+     <Compile Include="Assets\Scripts\GestureRecognizer.cs" />
      <Compile Include="Assets\Scripts\MoveProjektiles.cs" />
      <Compile Include="Assets\Scripts\SpellCheck.cs" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-exclamation_point-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-six_point_star-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-asterisk-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-I-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-X-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-H-01.xml" />
      <None Include="Assets\KY_effects\MagicEffectsPackFree\ReadMe.txt" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-line-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-T-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-pitchfork-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-five_point_star-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-N-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-D-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-arrowhead-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-P-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-half_note-01.xml" />
+     <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-null-01.xml" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2019.4.40f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
