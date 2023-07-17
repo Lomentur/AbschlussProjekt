@@ -25,9 +25,10 @@ public class GestureRecognizer : MonoBehaviour
     public class UnityStringEvent : UnityEvent<string> { }
     //create event - onRecognized
     public UnityStringEvent OnRecognized;
-
+    //list for creating a new Gesture to recognise
     private List<Gesture> trainingSet = new List<Gesture>();
     private bool isMoving = false;
+    //list for where to draw the cubes
     private List<Vector3> positionsList = new List<Vector3>();
 
     //represents the name of the directory for XML files
@@ -86,8 +87,8 @@ public class GestureRecognizer : MonoBehaviour
         //if a prefab is loaded in
         if (spellLinePrefab)
         {
-            //create a new prefab at current position, destroy it after 3 seconds
-            Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 3);
+            //create a new prefab at current position, destroy it after 1 second
+            Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 1);
         }
     }
     private void EndMovement()
@@ -100,6 +101,8 @@ public class GestureRecognizer : MonoBehaviour
         //fill array
         for (int i = 0; i < positionsList.Count; i++)
         {
+            //add the position to the screen from the position of the hand
+            //this is needed since PDollarGestureRecognizer works in 2D but the Projekt is in 3D
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(positionsList[i]);
             //the 0 stands for the number of strokes before its registered
             pointArray[i] = new Point(screenPoint.x, screenPoint.y, 0);
@@ -120,10 +123,10 @@ public class GestureRecognizer : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
-            Debug.Log(result.GestureClass + result.Score);
+            Debug.Log(result.GestureClass + " " + result.Score); //give out the recognised gesture + the score of how much it thinks its the gesture
             if (result.Score > regognitionThreshold)
             {
-                OnRecognized.Invoke(result.GestureClass);
+                OnRecognized.Invoke(result.GestureClass); //if threshold is exeded, call the string class
             }
         }
     }
@@ -141,8 +144,8 @@ public class GestureRecognizer : MonoBehaviour
             positionsList.Add(movementSource.position);
             if (spellLinePrefab)
             {
-                //create a new prefab at current position, destroy it after 3 seconds
-                Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 3);
+                //create a new prefab at current position, destroy it after 1 second
+                Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 1);
             }
         }
     }

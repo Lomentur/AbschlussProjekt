@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SpellSpawner : MonoBehaviour
 {
-    //list of spells to spawn
+    //spawn location for spells
     public GameObject SpellSpawnLocation;
+    //list of spells that can spawn
     public List<GameObject> objects;
 
     public void Spawn(string objectName)
@@ -15,7 +16,10 @@ public class SpellSpawner : MonoBehaviour
         {
             //item.SetActive(objectName == item.name);
             //Summon item at player camera
-            Instantiate(item, position:SpellSpawnLocation.transform.position, rotation:SpellSpawnLocation.transform.rotation);//position:/rotation: to not child object, only use their values
+            if(objectName == item.name)
+            {
+                Instantiate(item, position:SpellSpawnLocation.transform.position, rotation:SpellSpawnLocation.transform.rotation);//position:/rotation: to not child object, only use their values
+            }
         }
     }
 }

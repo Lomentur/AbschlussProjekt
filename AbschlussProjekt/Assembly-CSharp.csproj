@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\MoveProjectiles.cs" />
      <Compile Include="Assets\Scripts\SpellCheck.cs" />
      <Compile Include="Assets\Scripts\SpellSpawner.cs" />
+     <None Include="Assets\Gestures\Energy.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-exclamation_point-01.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-six_point_star-01.xml" />
      <None Include="Assets\Gestures\Fire.xml" />
@@ -64,6 +65,7 @@
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-D-01.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-arrowhead-01.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-P-01.xml" />
+     <None Include="Assets\Gestures\Electro.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-half_note-01.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-null-01.xml" />
     <Reference Include="UnityEngine">

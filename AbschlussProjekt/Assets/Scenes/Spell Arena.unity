@@ -363,6 +363,8 @@ MonoBehaviour:
   SpellSpawnLocation: {fileID: 1051412578}
   objects:
   - {fileID: 2006279329315106380, guid: 01b8bae03c59708449c1188ce074f5b5, type: 3}
+  - {fileID: 4697511515061735761, guid: 0e054a73dd6af4e40912830315e32adf, type: 3}
+  - {fileID: 1073417211767655309, guid: b69f8d05a95b1d84e9169ea0c6de96af, type: 3}
 --- !u!1 &443046951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,7 +1729,7 @@ MonoBehaviour:
   spellLinePrefab: {fileID: 2969688444912888815, guid: 659a0bfd97d32b448bca6511c9854ff3,
     type: 3}
   creationMode: 0
-  newGestureName: Fire
+  newGestureName: 
   regognitionThreshold: 0.9
   OnRecognized:
     m_PersistentCalls:
@@ -1740,7 +1742,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Fire
+          m_StringArgument: Electro
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1001 &4163877329265272046
