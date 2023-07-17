@@ -38,7 +38,6 @@
   <ItemGroup>
      <Compile Include="Assets\KY_effects\Script\ConGUI.cs" />
      <Compile Include="Assets\KY_effects\Script\Lighting.cs" />
-     <Compile Include="Assets\PDollar\Scripts\Demo.cs" />
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Geometry.cs" />
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Gesture.cs" />
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\GestureIO.cs" />
@@ -46,10 +45,12 @@
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\PointCloudRecognizer.cs" />
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Result.cs" />
      <Compile Include="Assets\Scripts\GestureRecognizer.cs" />
-     <Compile Include="Assets\Scripts\MoveProjektiles.cs" />
+     <Compile Include="Assets\Scripts\MoveProjectiles.cs" />
      <Compile Include="Assets\Scripts\SpellCheck.cs" />
+     <Compile Include="Assets\Scripts\SpellSpawner.cs" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-exclamation_point-01.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-six_point_star-01.xml" />
+     <None Include="Assets\Gestures\Fire.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-asterisk-01.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-I-01.xml" />
      <None Include="Assets\PDollar\Resources\GestureSet\10-stylus-MEDIUM\10-stylus-medium-X-01.xml" />

@@ -13,7 +13,7 @@ public class GestureRecognizer : MonoBehaviour
     public float inputThreshold = 0.1f;
     public Transform movementSource;
     public float newPositionThresholdDistance = 0.05f;
-    public GameObject debugCubePrefab;
+    public GameObject spellLinePrefab;
     public bool creationMode = true;
     public string newGestureName;
 
@@ -84,10 +84,10 @@ public class GestureRecognizer : MonoBehaviour
         //add Current Position as first point
         positionsList.Add(movementSource.position);
         //if a prefab is loaded in
-        if (debugCubePrefab)
+        if (spellLinePrefab)
         {
             //create a new prefab at current position, destroy it after 3 seconds
-            Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity), 3);
+            Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 3);
         }
     }
     private void EndMovement()
@@ -139,10 +139,10 @@ public class GestureRecognizer : MonoBehaviour
         if (Vector3.Distance(movementSource.position, lastPosition) > newPositionThresholdDistance)
         {
             positionsList.Add(movementSource.position);
-            if (debugCubePrefab)
+            if (spellLinePrefab)
             {
                 //create a new prefab at current position, destroy it after 3 seconds
-                Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity), 3);
+                Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 3);
             }
         }
     }
