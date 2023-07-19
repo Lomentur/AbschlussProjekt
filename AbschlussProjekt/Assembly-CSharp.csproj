@@ -44,6 +44,7 @@
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Point.cs" />
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\PointCloudRecognizer.cs" />
      <Compile Include="Assets\PDollar\Scripts\PDollarGestureRecognizer\Result.cs" />
+     <Compile Include="Assets\Scripts\DummySpellSpawn.cs" />
      <Compile Include="Assets\Scripts\GestureRecognizer.cs" />
      <Compile Include="Assets\Scripts\MoveProjectiles.cs" />
      <Compile Include="Assets\Scripts\SpellCheck.cs" />

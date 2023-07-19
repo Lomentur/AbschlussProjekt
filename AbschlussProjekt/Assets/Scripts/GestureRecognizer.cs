@@ -87,8 +87,8 @@ public class GestureRecognizer : MonoBehaviour
         //if a prefab is loaded in
         if (spellLinePrefab)
         {
-            //create a new prefab at current position, destroy it after 1 second
-            Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 1);
+            //create a new prefab at current position, destroy it after x seconds
+            Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 2);
         }
     }
     private void EndMovement()
@@ -126,7 +126,7 @@ public class GestureRecognizer : MonoBehaviour
             Debug.Log(result.GestureClass + " " + result.Score); //give out the recognised gesture + the score of how much it thinks its the gesture
             if (result.Score > regognitionThreshold)
             {
-                OnRecognized.Invoke(result.GestureClass); //if threshold is exeded, call the string class
+                OnRecognized.Invoke(result.GestureClass); //if threshold is exeded, call the string class (in the inspector)
             }
         }
     }
@@ -144,8 +144,8 @@ public class GestureRecognizer : MonoBehaviour
             positionsList.Add(movementSource.position);
             if (spellLinePrefab)
             {
-                //create a new prefab at current position, destroy it after 1 second
-                Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 1);
+                //create a new prefab at current position, destroy it after x seconds
+                Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 2);
             }
         }
     }
