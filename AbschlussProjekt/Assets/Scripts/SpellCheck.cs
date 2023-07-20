@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+* File: SpellCheck.cs
+*Date: 20.07.2023
+*Author: L.Ritter
+*/
+using UnityEngine;
 
 public class SpellCheck : MonoBehaviour
 {

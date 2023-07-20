@@ -1,5 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+* File: MoveProjectiles.cs
+*Date: 20.07.2023
+*Author: L.Ritter
+*/
+using System.Collections;
 using UnityEngine;
 
 public class MoveProjectiles : MonoBehaviour

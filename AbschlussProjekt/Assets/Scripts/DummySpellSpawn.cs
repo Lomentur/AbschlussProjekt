@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/*
+* File: DummySpellSpawn.cs
+*Date: 20.07.2023
+*Author: L.Ritter
+*/
 using System.Collections.Generic;
 using UnityEngine;
 

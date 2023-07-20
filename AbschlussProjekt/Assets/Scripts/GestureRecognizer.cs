@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿
+/*
+* File: GestureRecognizer.cs
+*Date: 20.07.2023
+*Author: L.Ritter
+*/
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -8,6 +13,7 @@ using System.IO;
 using UnityEngine.Events;
 public class GestureRecognizer : MonoBehaviour
 {
+    //Deklaration der Variablen
     public XRNode inputSource;
     public InputHelpers.Button inputButton;
     public float inputThreshold = 0.1f;
@@ -16,78 +22,74 @@ public class GestureRecognizer : MonoBehaviour
     public GameObject spellLinePrefab;
     public bool creationMode = true;
     public string newGestureName;
-
     public float regognitionThreshold = 0.9f;
-
-    //allows for editing of Unity event from editor
-    [System.Serializable]
-    //create class for custom Unity events
-    public class UnityStringEvent : UnityEvent<string> { }
-    //create event - onRecognized
-    public UnityStringEvent OnRecognized;
-    //list for creating a new Gesture to recognise
-    private List<Gesture> trainingSet = new List<Gesture>();
     private bool isMoving = false;
-    //list for where to draw the cubes
-    private List<Vector3> positionsList = new List<Vector3>();
 
-    //represents the name of the directory for XML files
+    //Erlaubt editirung im Unity Inspektor
+    [System.Serializable]
+    //Erstellung einer eigenen Unity Event Klasse
+    public class UnityStringEvent : UnityEvent<string> { }
+    //Event für Zeichenerkennung
+    public UnityStringEvent OnRecognized;
+    //liste um neue geste einzulesen
+    private List<Gesture> trainingSet = new List<Gesture>();
+    //Liste für wo die Blöcke gezeichnet werden.
+    private List<Vector3> positionsList = new List<Vector3>();
+    //Verzeichnis für die XML dateien
     private const string GESTURES_DIRECTORY = "Gestures";
     private string gesturesPath;
 
-    private void Start()
+    private void Start()    //wird beim start des Programms einmalig ausgeführt
     {
-        //set path for XML files in the Projekt
+        //Verzeichnis für die XML dateien wird festgelegt
         gesturesPath = Path.Combine(Application.dataPath, GESTURES_DIRECTORY);
-        //if directory doesn't exist, create it
-        if (!Directory.Exists(gesturesPath))
+
+        if (!Directory.Exists(gesturesPath))    //wenn das verzeichnis nicht existiert
         {
-            Directory.CreateDirectory(gesturesPath);
+            Directory.CreateDirectory(gesturesPath);    //erstelle verzeichnis
         }
-        //find all xml files (the gestures)
+        //finde alle kreierten XML dateien
         string[] gestureFiles = Directory.GetFiles(gesturesPath, "*.xml");
+        //gebe die dateien an GestureIO
         foreach (var item in gestureFiles)
         {
-            //feed the xml files into GestureIO
             trainingSet.Add(GestureIO.ReadGestureFromFile(item));
         }
     }
-    void Update()
+    void Update() //wird jeden frame aufgerufen
     {
-        //check if input Button is Pressed
+        //überprüfe ob der Input Knopf gedrückt wird
         InputHelpers.IsPressed(InputDevices.GetDeviceAtXRNode(inputSource), inputButton, out bool isPressed, inputThreshold);
 
-        //Start the Movement
+        //Starte die Zeichnung
         if (!isMoving && isPressed)
         {
             StartMovement();
         }
 
-        //Ending the Movement
+        //Ende die Zeichnung
         else if (isMoving && !isPressed)
         {
             EndMovement();
         }
 
-        //Updating the Movement
+        //Update die Bewegung (der Zeichnung)
         else if (isMoving && isPressed)
         {
             UpdateMovement();
         }
     }
-
     void StartMovement()
     {
         Debug.Log("Start Movement");
         isMoving = true;
-        //clear position List
-        positionsList.Clear();
-        //add Current Position as first point
+        positionsList.Clear();  //leere positionsList
+        //aktuelle position des Kontrollers ist der erste Punkt der Zeichnung
         positionsList.Add(movementSource.position);
-        //if a prefab is loaded in
+        //wenn ein prefab angegeben ist
         if (spellLinePrefab)
         {
-            //create a new prefab at current position, destroy it after x seconds
+            //setze den angegebenen prefab an der aktuellen position, zerstöre ihn nach 2 sekunden
             Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 2);
         }
     }
@@ -95,56 +97,53 @@ public class GestureRecognizer : MonoBehaviour
     {
         Debug.Log("End Movement");
         isMoving = false;
-        //create point array with the size of the position list
+        //erstelle ein point array mit der größe der position liste
         Point[] pointArray = new Point[positionsList.Count];
-
-        //fill array
+        //fülle das array
         for (int i = 0; i < positionsList.Count; i++)
         {
-            //add the position to the screen from the position of the hand
-            //this is needed since PDollarGestureRecognizer works in 2D but the Projekt is in 3D
+            //füge die aktuelle position der Hand zum 2D Bildschirm von Pdollar hinzu
+            //dies wird benötigt da PDollar in 2D arbeitet und die hand in 3D zeichnet
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(positionsList[i]);
-            //the 0 stands for the number of strokes before its registered
             pointArray[i] = new Point(screenPoint.x, screenPoint.y, 0);
+            //die 0 steht für die anzahl an individuellen zeichnungen befor die bewegung erkannt wird
         }
 
         Gesture newGesture = new Gesture(pointArray);
 
-        //add a gesture to the training set
+        //wenn kreations Modus an ist, füge die zeichnung zum Trainingset hinzu
         if (creationMode)
         {
             newGesture.Name = newGestureName;
             trainingSet.Add(newGesture);
-
             string fileName = Path.Combine(gesturesPath, newGestureName + ".xml");
             GestureIO.WriteGesture(pointArray, newGestureName, fileName);
         }
-        //recognize a gesture
+        //an sonsten versuche die zeichnung zu erkennen
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
-            Debug.Log(result.GestureClass + " " + result.Score); //give out the recognised gesture + the score of how much it thinks its the gesture
+            Debug.Log(result.GestureClass + " " + result.Score); //gebe die erkannte geste aus mit dem score wie sicher es dieses zeichen ist
+            //wenn der score größer als die erkennungsgrenze ist
             if (result.Score > regognitionThreshold)
             {
-                OnRecognized.Invoke(result.GestureClass); //if threshold is exeded, call the string class (in the inspector)
+                OnRecognized.Invoke(result.GestureClass); //rufe die kreierte Unity String Event Klasse auf
             }
         }
     }
-
-
-
     void UpdateMovement()
     {
         Debug.Log("Update Movement");
-        //get the last position
+        //nimm die letzte position
         Vector3 lastPosition = positionsList[positionsList.Count - 1];
-        //if the new Position is more than threshold distance away, make new position 
+        //wenn die neue position mehr als die bewegungsgrenze entfernt ist 
         if (Vector3.Distance(movementSource.position, lastPosition) > newPositionThresholdDistance)
         {
+            //erstelle eine neue position an aktueller stelle
             positionsList.Add(movementSource.position);
+            //gleich wie in zeile 89
             if (spellLinePrefab)
             {
-                //create a new prefab at current position, destroy it after x seconds
                 Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 2);
             }
         }
