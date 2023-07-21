@@ -8,35 +8,36 @@ using UnityEngine;
 
 public class DummySpellSpawn : MonoBehaviour
 {
-    //spawn location for spells
+    //spawn ort der spells
     public GameObject SpellSpawnLocation;
-    //list of spells that can spawn
+    //liste der spawnbaren spells
     public List<GameObject> objects;
+    //position des spielers
     public Transform playerPos;
-    //default value for RNG
+    //voreingestellter RNG wert
     private int RNG = 1;
-    //default value for timer
+    //voreingestellter timer wert
     public float timer = 3f;
     
-    void Update()
+    void Update()   //wird jeden frame aufgerufen
     {
-        //if timer is higher than 0
+        //wenn zeit höher als 0 ist
         if(timer>0)
        {
-        //decrease time
+        //setze die zeit runter
         timer-=Time.deltaTime;
        }
-       //if timer is smaller equal to 0
+       //wenn zeit weniger oder gleich 0 ist
        if(timer <= 0)
        {
-        //reset timer
+        //resette den timer
         timer = 3;
-        //call randomizer method
+        //hohl eine zufalls zahl
         randomizer();
-        //switch case with RNG Number
+        //switch case mit zufallszahl
         switch (RNG)
         {
-            //spawn Spell depending on case
+            //spawn Spell an spell spawn ort, je nach case
             case 1:
             Instantiate(objects[0],position:SpellSpawnLocation.transform.position, rotation:SpellSpawnLocation.transform.rotation);
             break;
@@ -51,13 +52,13 @@ public class DummySpellSpawn : MonoBehaviour
         }
        }
     }
-    //randomizer method
+    //randomizer methode
     public int randomizer()
     {
-        //set RNG to a random number between 1 and 3
+        //setze die reichweite von RNG zwischen 1 und 3
         RNG = Random.Range(1,4);
         Debug.Log(RNG);
-        //return RNG with random number
+        //gieb die zufällige zahl zurück
         return RNG;
     }
 }

@@ -7,57 +7,61 @@ using UnityEngine;
 
 public class SpellCheck : MonoBehaviour
 {
-    private string FireTag = "Fire"; //Tag of the first projectile
-    private string ElectroTag = "Electro"; //Tag of the second projectile
-    private string EnergyTag = "Energy"; //Tag of the third projectile
-    private string ArenaTag = "Arena";
-    private int status;
+    private string FireTag = "Fire"; //Feuer Tag
+    private string ElectroTag = "Electro"; //Electro Tag
+    private string EnergyTag = "Energy"; //Energie Tag
+    private string ArenaTag = "Arena"; //Arena Tag
+    //private int status;
 
-    private GameObject collidedSpell; // Store the collided object
-
+    // speicherort für den kollidierten spell
+    private GameObject collidedSpell; 
+    // wird aufgerufen sobald ein Object den Trigger Collider betreten hat
     private void OnTriggerEnter(Collider collision)
     {
         Debug.Log("collision!");
-        // Check if the collided object has a projectile tag
+        // überprüfe ob das kollidierte Object einen spell Tag hat
         if (collision.gameObject.CompareTag(FireTag) || collision.gameObject.CompareTag(ElectroTag) || collision.gameObject.CompareTag(EnergyTag))
         {
             Debug.Log("TagFound");
-            collidedSpell = collision.gameObject; // Store the collided object
+            //speicher das kollidierte objekt
+            collidedSpell = collision.gameObject;
 
-            // Get the tags of the collided projectiles
+            // hohl die tags der beiden objekte ab
             string shotProjTag = gameObject.tag;
             string collidedProjTag = collidedSpell.tag;
 
-            // Handle the collision based on the projectile tags
-            if (shotProjTag == collidedProjTag) //if same tag
+            // verfahre mit der kollision, basierent auf den tags
+
+            if (shotProjTag == collidedProjTag) //wenn selber tag
             {
                 Debug.Log("SameTag");
-                DestroyBothObjects(); //destroy both spells
+                DestroyBothObjects(); //zerstöre beides
             }
             else
             {            
-                if(shotProjTag == FireTag && collidedProjTag == ElectroTag) //Fire hits Electro
+                if(shotProjTag == FireTag && collidedProjTag == ElectroTag) //Feuer trifft Electro
                 {
-                    Destroy(collidedSpell);//destroy electro
+                    Destroy(collidedSpell);//zerstöre electro
                     Debug.Log(gameObject + " destroyed electro");
                 }
-                else if(shotProjTag == ElectroTag && collidedProjTag == EnergyTag) //Electro hits Energy
+                else if(shotProjTag == ElectroTag && collidedProjTag == EnergyTag) //Electro trifft Energie
                 {
-                    Destroy(collidedSpell);//destroy energy
+                    Destroy(collidedSpell);//zerstöre energie
                     Debug.Log(gameObject + " destroyed energy");
                 }
-                else if(shotProjTag == EnergyTag && collidedProjTag == FireTag) //Energy hits Fire
+                else if(shotProjTag == EnergyTag && collidedProjTag == FireTag) //Energie trifft Feuer
                 {
-                    Destroy(collidedSpell); //destroy fire
+                    Destroy(collidedSpell); //zerstöre feuer
                     Debug.Log(gameObject + " destroyed fire");
                 }
-                else
+                else //an sonsten, zerstöre dich selbst
                 {
                     Destroy(gameObject);
                     Debug.Log(gameObject + " destroyed self");
                 }
             }
         }
+        // sicherheits abfrage ob die arena getroffen wurde
         else if (collision.gameObject.CompareTag(ArenaTag))
         {
             Destroy(gameObject);
@@ -65,11 +69,11 @@ public class SpellCheck : MonoBehaviour
         }
     }
     
-    private void DestroyBothObjects() //method for destroying both spells
+    private void DestroyBothObjects() //methode zum zerstören beider Objekte
     {
-        Destroy(gameObject); //destroy shot projectile
+        Destroy(gameObject); //zerstöre geschossenen spell
         Debug.Log(gameObject + " was destroyed");
-        Destroy(collidedSpell); //destroy hit projectile
+        Destroy(collidedSpell); //zerstöre kollidierten spell
         Debug.Log(collidedSpell + " was destroyed");
     }
 }

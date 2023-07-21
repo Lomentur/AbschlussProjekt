@@ -8,21 +8,21 @@ using UnityEngine;
 
 public class SpellSpawner : MonoBehaviour
 {
-    //spawn location for spells
+    //spawn ort der spells
     public GameObject SpellSpawnLocation;
-    //list of spells that can spawn
+    //liste der spawnbaren spells
     public List<GameObject> objects;
-
+    //methode zum spawnen der spells via UnityEvent
     public void Spawn(string objectName)
     {
-        //activate item that corresponds to a specific name
+        //geh alle objekte in der liste durch
         foreach (var item in objects)
         {
-            //item.SetActive(objectName == item.name);
-            //Summon item at player camera
+            //wenn übereinstimmung zwischen hinterlegten spells und der liste besteht
             if(objectName == item.name)
             {
-                Instantiate(item, position:SpellSpawnLocation.transform.position, rotation:SpellSpawnLocation.transform.rotation);//position:/rotation: to not child object, only use their values
+                //spawne den spell am angegebenen ort
+                Instantiate(item, position:SpellSpawnLocation.transform.position, rotation:SpellSpawnLocation.transform.rotation);
             }
         }
     }

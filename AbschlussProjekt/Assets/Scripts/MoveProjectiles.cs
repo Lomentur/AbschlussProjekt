@@ -8,21 +8,26 @@ using UnityEngine;
 
 public class MoveProjectiles : MonoBehaviour
 {
+    //deklaration
     float seconds = 0.5f;
     // Awake is called once the skript is called upon
     // in this case, once a projektile is summoned
-    void Awake()
+    void Awake() //Awake wird aufgerufen sobald das skript aufgerufen wird
     {
-        WaitTime();
+        //warte
+        WaitTime(); 
+        // stell den collider an
         GetComponent<Collider>().enabled = true;
     }
+    //Warte Methode
     IEnumerator WaitTime()
     {
+        //warte die angegebene zeit
         yield return new WaitForSeconds(seconds);
     }
-    // Update is called once per frame
-    void Update()
+    void Update() //wird jeden frame aufgerufen
     {
+        //bewege den spell forwärts
         GetComponent<Rigidbody>().AddForce(transform.forward);
     }
 }
