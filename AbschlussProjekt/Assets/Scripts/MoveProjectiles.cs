@@ -10,12 +10,11 @@ public class MoveProjectiles : MonoBehaviour
 {
     //deklaration
     float seconds = 0.5f;
-    // Awake is called once the skript is called upon
-    // in this case, once a projektile is summoned
+
     void Awake() //Awake wird aufgerufen sobald das skript aufgerufen wird
     {
         //warte
-        WaitTime(); 
+        WaitTime();
         // stell den collider an
         GetComponent<Collider>().enabled = true;
     }

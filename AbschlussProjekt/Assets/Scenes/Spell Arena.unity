@@ -440,10 +440,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpellSpawnLocation: {fileID: 1051412578}
-  objects:
+  GestureRec: {fileID: 2093867414}
+  spells:
   - {fileID: 2006279329315106380, guid: 01b8bae03c59708449c1188ce074f5b5, type: 3}
-  - {fileID: 4697511515061735761, guid: 0e054a73dd6af4e40912830315e32adf, type: 3}
   - {fileID: 1073417211767655309, guid: b69f8d05a95b1d84e9169ea0c6de96af, type: 3}
+  - {fileID: 4697511515061735761, guid: 0e054a73dd6af4e40912830315e32adf, type: 3}
 --- !u!1 &312172538
 GameObject:
   m_ObjectHideFlags: 0
@@ -2700,7 +2701,7 @@ GameObject:
   - component: {fileID: 2093867415}
   - component: {fileID: 2093867416}
   m_Layer: 0
-  m_Name: GestureRecognizer
+  m_Name: GestureRecognizerOBJ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2732,39 +2733,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68cbb28142afeee4cb67ef4fbd69b579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputSource: 5
-  inputButton: 2
-  inputThreshold: 0.1
+  controllerInput: 5
+  buttonInput: 2
   movementSource: {fileID: 1125600026}
-  newPositionThresholdDistance: 0.05
   spellLinePrefab: {fileID: 2969688444912888815, guid: 659a0bfd97d32b448bca6511c9854ff3,
     type: 3}
+  inputThreshold: 0.1
+  regognitionThreshold: 0.8
+  newPositionThresholdDistance: 0.05
   creationMode: 0
   newGestureName: 
-  regognitionThreshold: 0.9
+  resultName: 
   OnRecognized:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 256612282}
         m_MethodName: Spawn
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Electro
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 256612282}
-        m_MethodName: Spawn
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Fire
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1001 &4163877329265272046

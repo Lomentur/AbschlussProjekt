@@ -1,7 +1,7 @@
 ﻿
 /*
 * File: GestureRecognizer.cs
-*Date: 20.07.2023
+*Date: 24.07.2023
 *Author: L.Ritter
 */
 using System.Collections.Generic;
@@ -14,16 +14,17 @@ using UnityEngine.Events;
 public class GestureRecognizer : MonoBehaviour
 {
     //Deklaration der Variablen
-    public XRNode inputSource;
-    public InputHelpers.Button inputButton;
-    public float inputThreshold = 0.1f;
+    public XRNode controllerInput;
+    public InputHelpers.Button buttonInput;
     public Transform movementSource;
-    public float newPositionThresholdDistance = 0.05f;
     public GameObject spellLinePrefab;
+    public float inputThreshold = 0.1f;
+    public float regognitionThreshold = 0.9f;
+    public float newPositionThresholdDistance = 0.05f;
+    private bool isMoving = false;
     public bool creationMode = true;
     public string newGestureName;
-    public float regognitionThreshold = 0.9f;
-    private bool isMoving = false;
+    public string resultName;
 
     //Erlaubt editirung im Unity Inspektor
     [System.Serializable]
@@ -59,7 +60,7 @@ public class GestureRecognizer : MonoBehaviour
     void Update() //wird jeden frame aufgerufen
     {
         //überprüfe ob der Input Knopf gedrückt wird
-        InputHelpers.IsPressed(InputDevices.GetDeviceAtXRNode(inputSource), inputButton, out bool isPressed, inputThreshold);
+        InputHelpers.IsPressed(InputDevices.GetDeviceAtXRNode(controllerInput), buttonInput, out bool isPressed, inputThreshold);
 
         //Starte die Zeichnung
         if (!isMoving && isPressed)
@@ -93,6 +94,25 @@ public class GestureRecognizer : MonoBehaviour
             Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 2);
         }
     }
+
+    void UpdateMovement()
+    {
+        Debug.Log("Update Movement");
+        //nimm die letzte position
+        Vector3 lastPosition = positionsList[positionsList.Count - 1];
+        //wenn die neue position mehr als die bewegungsgrenze entfernt ist 
+        if (Vector3.Distance(movementSource.position, lastPosition) > newPositionThresholdDistance)
+        {
+            //erstelle eine neue position an aktueller stelle
+            positionsList.Add(movementSource.position);
+            //gleich wie in zeile 89
+            if (spellLinePrefab)
+            {
+                Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 2);
+            }
+        }
+    }
+
     private void EndMovement()
     {
         Debug.Log("End Movement");
@@ -124,6 +144,7 @@ public class GestureRecognizer : MonoBehaviour
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
             Debug.Log(result.GestureClass + " " + result.Score); //gebe die erkannte geste aus mit dem score wie sicher es dieses zeichen ist
+            resultName = result.GestureClass; //nimmt result und liest es in eine string variable rein
             //wenn der score größer als die erkennungsgrenze ist
             if (result.Score > regognitionThreshold)
             {
@@ -131,21 +152,8 @@ public class GestureRecognizer : MonoBehaviour
             }
         }
     }
-    void UpdateMovement()
+    public string GetResult() //getter für result der zeichenerkennung
     {
-        Debug.Log("Update Movement");
-        //nimm die letzte position
-        Vector3 lastPosition = positionsList[positionsList.Count - 1];
-        //wenn die neue position mehr als die bewegungsgrenze entfernt ist 
-        if (Vector3.Distance(movementSource.position, lastPosition) > newPositionThresholdDistance)
-        {
-            //erstelle eine neue position an aktueller stelle
-            positionsList.Add(movementSource.position);
-            //gleich wie in zeile 89
-            if (spellLinePrefab)
-            {
-                Destroy(Instantiate(spellLinePrefab, movementSource.position, Quaternion.identity), 2);
-            }
-        }
+        return resultName;
     }
 }
