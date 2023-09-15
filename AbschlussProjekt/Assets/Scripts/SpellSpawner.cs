@@ -35,8 +35,6 @@ public class SpellSpawner : MonoBehaviour
             Debug.Log("Energy!!!");
         }
         else
-        {
-            Debug.Log("nothing!!!");
-        }
+        {Debug.Log("nothing!!!");}
     }
 }

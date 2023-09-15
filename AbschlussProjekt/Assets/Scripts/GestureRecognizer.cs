@@ -24,7 +24,7 @@ public class GestureRecognizer : MonoBehaviour
     private bool isMoving = false;
     public bool creationMode = true;
     public string newGestureName;
-    public string resultName;
+    private string resultName;
 
     //Erlaubt editirung im Unity Inspektor
     [System.Serializable]
@@ -65,22 +65,22 @@ public class GestureRecognizer : MonoBehaviour
         //Starte die Zeichnung
         if (!isMoving && isPressed)
         {
-            StartMovement();
+            StartGesture();
         }
 
         //Ende die Zeichnung
         else if (isMoving && !isPressed)
         {
-            EndMovement();
+            EndGesture();
         }
 
         //Update die Bewegung (der Zeichnung)
         else if (isMoving && isPressed)
         {
-            UpdateMovement();
+            UpdateGesture();
         }
     }
-    void StartMovement()
+    void StartGesture()
     {
         Debug.Log("Start Movement");
         isMoving = true;
@@ -95,7 +95,7 @@ public class GestureRecognizer : MonoBehaviour
         }
     }
 
-    void UpdateMovement()
+    void UpdateGesture()
     {
         Debug.Log("Update Movement");
         //nimm die letzte position
@@ -113,7 +113,7 @@ public class GestureRecognizer : MonoBehaviour
         }
     }
 
-    private void EndMovement()
+    private void EndGesture()
     {
         Debug.Log("End Movement");
         isMoving = false;
